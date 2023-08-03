@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 
 import useHttp from '../../hooks/use-http';
 import { userActions } from '../../store/user/user-slice';
+import { host } from '../../store/store';
 
 import styles from './Navbar.module.css';
 import { FaUser, FaShoppingCart } from 'react-icons/fa';
@@ -22,7 +23,7 @@ const NavBar = () => {
 
   const logoutHandler = () => {
     sendRequest({
-      url: 'http://192.168.1.107:5000/logout',
+      url: `${host}/logout`,
       method: 'POST',
     })
       .then(() => {

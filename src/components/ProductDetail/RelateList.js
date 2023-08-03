@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useHttp from '../../hooks/use-http';
 import { productActions } from '../../store/product/product-slice';
+import { host } from '../../store/store';
 
 import styles from './RelateList.module.css';
 
@@ -18,7 +19,7 @@ const RelateList = (props) => {
 
   useEffect(() => {
     sendRequest({
-      url: `http://192.168.1.107:5000/products/category?category=${props.category}`,
+      url: `${host}/products/category?category=${props.category}`,
     })
       .then((result) => {
         if (result.error) {

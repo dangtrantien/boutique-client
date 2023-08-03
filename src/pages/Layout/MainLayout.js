@@ -7,6 +7,7 @@ import { userActions } from '../../store/user/user-slice';
 import useHttp from '../../hooks/use-http';
 import NavBar from '../../components/Layout/Navbar';
 import Footer from '../../components/Layout/Footer';
+import { host } from '../../store/store';
 
 // ==================================================
 
@@ -19,7 +20,7 @@ const MainLayout = () => {
     if (!token) {
       return;
     } else {
-      sendRequest({ url: 'http://192.168.1.107:5000/user' })
+      sendRequest({ url: `${host}/user` })
         .then((result) => {
           if (result.error) {
             return;

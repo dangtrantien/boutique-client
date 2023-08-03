@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import useHttp from '../../hooks/use-http';
+import { host } from '../../store/store';
 
 import styles from './OrderList.module.css';
 import { FaLongArrowAltRight } from 'react-icons/fa';
@@ -17,7 +18,7 @@ const OrderList = () => {
 
   useEffect(() => {
     sendRequest({
-      url: 'http://192.168.1.107:5000/user/orders',
+      url: `${host}/user/orders`,
     })
       .then((result) => {
         if (result.error) {

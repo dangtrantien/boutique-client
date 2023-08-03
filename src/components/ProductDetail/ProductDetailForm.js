@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import useHttp from '../../hooks/use-http';
 import { userActions } from '../../store/user/user-slice';
+import { host } from '../../store/store';
 
 import styles from './ProductDetailForm.module.css';
 import { MdArrowLeft, MdArrowRight } from 'react-icons/md';
@@ -44,7 +45,7 @@ const ProductDetailForm = (props) => {
     }
 
     sendRequest({
-      url: 'http://192.168.1.107:5000/cart',
+      url: `${host}/cart`,
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

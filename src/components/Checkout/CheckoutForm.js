@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import useHttp from '../../hooks/use-http';
 import { userActions } from '../../store/user/user-slice';
+import { host } from '../../store/store';
 
 import styles from './CheckoutForm.module.css';
 
@@ -38,7 +39,7 @@ const CheckoutForm = () => {
 
     // Update user
     sendRequest({
-      url: 'http://192.168.1.107:5000/user',
+      url: `${host}/user`,
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +55,7 @@ const CheckoutForm = () => {
 
     // Oder
     sendRequest({
-      url: 'http://192.168.1.107:5000/user/order',
+      url: `${host}/user/order`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

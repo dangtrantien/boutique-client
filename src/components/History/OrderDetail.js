@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import useHttp from '../../hooks/use-http';
 import OrderDetailList from './OrderDetailList';
+import { host } from '../../store/store';
 
 import styles from './OrderDetail.module.css';
 
@@ -18,7 +19,7 @@ const OrderDetail = () => {
 
   useEffect(() => {
     sendRequest({
-      url: `http://192.168.1.107:5000/order/${orderId}`,
+      url: `${host}/order/${orderId}`,
     })
       .then((result) => {
         if (result.error) {

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useHttp from '../../hooks/use-http';
 import { userActions } from '../../store/user/user-slice';
+import { host } from '../../store/store';
 
 import styles from './CartList.module.css';
 import { MdArrowLeft, MdArrowRight } from 'react-icons/md';
@@ -44,7 +45,7 @@ const CartList = () => {
     );
 
     sendRequest({
-      url: 'http://192.168.1.107:5000/cart',
+      url: `${host}/cart`,
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -85,7 +86,7 @@ const CartList = () => {
     );
 
     sendRequest({
-      url: 'http://192.168.1.107:5000/cart',
+      url: `${host}/cart`,
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -104,7 +105,7 @@ const CartList = () => {
   const removeItemHandler = (prodId) => {
     if (window.confirm('Are you sure?') === true) {
       sendRequest({
-        url: 'http://192.168.1.107:5000/delete-cart-item',
+        url: `${host}/delete-cart-item`,
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -12,4 +12,7 @@ const store = configureStore({
   },
 });
 
+// export const host = 'http://192.168.1.107:5000';
+export const host = 'https://boutique-server.onrender.com';
+
 export default store;

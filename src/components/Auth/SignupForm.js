@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useHttp from '../../hooks/use-http';
 import { userActions } from '../../store/user/user-slice';
+import { host } from '../../store/store';
 
 import styles from './AuthLayout.module.css';
 
@@ -33,7 +34,7 @@ const SignupForm = () => {
     };
 
     sendRequest({
-      url: 'http://192.168.1.107:5000/signup',
+      url: `${host}/signup`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import useHttp from '../../hooks/use-http';
 import { productActions } from '../../store/product/product-slice';
 import Category from './Category';
 import ProductList from './ProductList';
+import { host } from '../../store/store';
 
 import styles from './Shop.module.css';
 
@@ -27,8 +28,8 @@ const Shop = () => {
     sendRequest({
       url:
         category === 'all'
-          ? 'http://192.168.1.107:5000'
-          : `http://192.168.1.107:5000/products/category?category=${category}`,
+          ? host
+          : `${host}/products/category?category=${category}`,
     })
       .then((result) => {
         if (result.error) {

@@ -4,13 +4,14 @@ import CSSTransition from 'react-transition-group/CSSTransition';
 import { io } from 'socket.io-client';
 
 import useHttp from '../../../../hooks/use-http';
+import { host } from '../../../../store/store';
 
 import styles from './LivechatForm.module.css';
 import { FaPaperPlane } from 'react-icons/fa';
 
 // ==================================================
 
-const socket = io('http://192.168.1.107:5000', {
+const socket = io(host, {
   withCredentials: true,
   transports: ['websocket'],
 });
@@ -32,18 +33,18 @@ const ChatForm = (props) => {
     e.preventDefault();
 
     // Create new session
-    let url = 'http://192.168.1.107:5000/message';
+    let url = `${host}/message`;
     let method = 'POST';
 
     // Edit session
     if (roomId) {
-      url = `http://192.168.1.107:5000/message/${roomId}`;
+      url = `${host}/message/${roomId}`;
       method = 'PUT';
     }
 
     // Delete session
     if (roomId && enteredInput === '/end') {
-      url = `http://192.168.1.107:5000/message/${roomId}`;
+      url = `${host}/message/${roomId}`;
       method = 'DELETE';
     }
 
@@ -78,7 +79,7 @@ const ChatForm = (props) => {
   useEffect(() => {
     if (roomId) {
       sendRequest({
-        url: `http://192.168.1.107:5000/message/${roomId}`,
+        url: `${host}/message/${roomId}`,
       })
         .then((result) => {
           if (result.error) {

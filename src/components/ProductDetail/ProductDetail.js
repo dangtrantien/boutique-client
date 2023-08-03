@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import useHttp from '../../hooks/use-http';
 import ProductDetailForm from './ProductDetailForm';
 import RelateList from './RelateList';
+import { host } from '../../store/store';
 
 import styles from './ProductDetail.module.css';
 
@@ -22,15 +23,15 @@ const ProductDetail = () => {
 
   useEffect(() => {
     // Lấy thông tin chi tiết của product theo id
-    sendRequest({ url: `http://192.168.1.107:5000/product/${productId}` }).then(
-      (result) => {
-        if (result.error) {
-          return alert(result.message);
-        }
-
-        setProduct(result);
+    sendRequest({
+      url: `${host}/product/${productId}`,
+    }).then((result) => {
+      if (result.error) {
+        return alert(result.message);
       }
-    );
+
+      setProduct(result);
+    });
   }, [productId, sendRequest]);
 
   return (
