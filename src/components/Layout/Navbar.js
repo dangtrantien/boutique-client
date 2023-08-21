@@ -100,12 +100,12 @@ const NavBar = (props) => {
                     }
                     align='end'
                   >
-                    <NavLink
-                      to='/history'
-                      className={({ isActive }) => (isActive ? 'active' : null)}
+                    <button
+                      type='button'
+                      onClick={() => navigate('/history', { replace: true })}
                     >
                       History
-                    </NavLink>
+                    </button>
                   </NavDropdown>
                 )}
 
