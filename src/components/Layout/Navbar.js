@@ -100,12 +100,12 @@ const NavBar = (props) => {
                     }
                     align='end'
                   >
-                    <button
-                      type='button'
+                    <NavDropdown.Item
+                      className={styles['nav-dropdown--item']}
                       onClick={() => navigate('/history', { replace: true })}
                     >
                       History
-                    </button>
+                    </NavDropdown.Item>
                   </NavDropdown>
                 )}
 
