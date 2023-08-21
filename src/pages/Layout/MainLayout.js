@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
@@ -14,12 +14,16 @@ const MainLayout = () => {
   const dispatch = useDispatch();
   const sendRequest = useHttp();
 
+  const [isSignin, setIsSignin] = useState(false);
+
   useEffect(() => {
     sendRequest({ url: `${host}/user` })
       .then((result) => {
         if (result.error) {
-          return;
+          return setIsSignin(false);
         }
+
+        setIsSignin(true);
 
         Object.keys(result).map((key) =>
           dispatch(
@@ -32,7 +36,7 @@ const MainLayout = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar isSignin={isSignin} />
 
       <main className='container-lg'>
         <Outlet />

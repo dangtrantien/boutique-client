@@ -11,7 +11,7 @@ import { FaUser, FaShoppingCart } from 'react-icons/fa';
 
 // ==================================================
 
-const NavBar = () => {
+const NavBar = (props) => {
   const dispatch = useDispatch();
   const sendRequest = useHttp();
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ const NavBar = () => {
                   )}
                 </NavLink>
 
-                {!token && (
+                {!props.isSignin && (
                   <NavLink
                     to='/signin'
                     className={({ isActive }) => (isActive ? 'active' : null)}
@@ -90,7 +90,7 @@ const NavBar = () => {
                   </NavLink>
                 )}
 
-                {token && (
+                {props.isSignin && (
                   <NavDropdown
                     title={
                       <>
@@ -109,7 +109,7 @@ const NavBar = () => {
                   </NavDropdown>
                 )}
 
-                {token && (
+                {props.isSignin && (
                   <button
                     className={styles['nav-btn']}
                     type='button'
