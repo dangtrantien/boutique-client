@@ -100,12 +100,12 @@ const NavBar = (props) => {
                     }
                     align='end'
                   >
-                    <NavDropdown.Item
-                      href='/history'
-                      className={styles['nav-dropdown--item']}
+                    <NavLink
+                      to='/history'
+                      className={({ isActive }) => (isActive ? 'active' : null)}
                     >
                       History
-                    </NavDropdown.Item>
+                    </NavLink>
                   </NavDropdown>
                 )}
 
