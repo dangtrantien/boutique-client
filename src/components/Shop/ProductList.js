@@ -1,43 +1,72 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import useHttp from '../../hooks/use-http';
+import { productActions } from '../../store/product/product-slice';
+import { host } from '../../store/store';
 
 import styles from './ProductList.module.css';
 
 // ==================================================
 
-const ProductList = () => {
+const ProductList = (props) => {
+  const dispatch = useDispatch();
+  const sendRequest = useHttp();
+
   const totalProduct = useSelector((state) => state.product.total);
   const products = useSelector((state) => state.product.items);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentProducts, setCurrentProducts] = useState([]);
+  const [page, setPage] = useState(1);
+
+  // Tổng số page
+  let totalPage = 1;
+
+  if (totalProduct > 8) {
+    while (totalPage <= Math.round(totalProduct / 8)) {
+      totalPage++;
+    }
+  }
 
   const changePageHandler = (direction) => {
     if (direction === 'next') {
-      setCurrentPage((prev) => (prev === products.length ? 1 : prev + 1));
+      setPage((prev) => (prev === totalPage ? 1 : prev + 1));
     } else {
-      setCurrentPage((prev) => (prev === 1 ? products.length : prev - 1));
+      setPage((prev) => (prev === 1 ? totalPage : prev - 1));
     }
   };
 
-  // Render value theo page
   useEffect(() => {
-    if (products.length !== 0) {
-      setCurrentProducts(products[currentPage - 1].results);
-    } else {
-      setCurrentProducts([]);
-    }
-  }, [products, currentPage]);
+    sendRequest({
+      url:
+        props.category === 'all'
+          ? host
+          : `${host}/products/category?category=${props.category}&page=${page}&limit=8`,
+    })
+      .then((result) => {
+        if (result.error) {
+          return alert(result.message);
+        }
+
+        dispatch(
+          productActions.replaceProductSate({
+            total: result.total,
+            result: result.data,
+          })
+        );
+      })
+      .catch((err) => console.log(err));
+  }, [props.category, page, sendRequest, dispatch]);
 
   return (
     <>
       <div className={styles['list-container']}>
-        {currentProducts?.length === 0 && (
+        {totalProduct === 0 && (
           <h3 className={styles.error}>Can not find any available product!</h3>
         )}
 
-        {currentProducts?.length !== 0 &&
-          currentProducts?.map((product) => (
+        {totalProduct > 0 &&
+          products.map((product) => (
             <div key={product._id} className={styles['product-container']}>
               <Link to={`/product/${product._id}`}>
                 <img src={product.img1} alt={product.name} />
@@ -59,7 +88,7 @@ const ProductList = () => {
           </button>
 
           <button type='button' className={styles.active}>
-            {currentPage}
+            {page}
           </button>
 
           <button type='button' onClick={changePageHandler.bind(null, 'next')}>
@@ -67,7 +96,13 @@ const ProductList = () => {
           </button>
         </div>
 
-        <p>Showing 1-8 of {totalProduct} results</p>
+        <p>
+          {totalProduct > 0
+            ? `Showing 1${
+                products.length > 1 ? `-${products.length}` : ''
+              } of ${totalProduct} results`
+            : 'Showing 0 result'}
+        </p>
       </div>
     </>
   );

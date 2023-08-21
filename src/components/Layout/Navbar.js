@@ -1,7 +1,6 @@
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
 
 import useHttp from '../../hooks/use-http';
 import { userActions } from '../../store/user/user-slice';
@@ -13,7 +12,6 @@ import { FaUser, FaShoppingCart } from 'react-icons/fa';
 // ==================================================
 
 const NavBar = () => {
-  const token = Cookies.get('token');
   const dispatch = useDispatch();
   const sendRequest = useHttp();
   const navigate = useNavigate();
@@ -28,8 +26,6 @@ const NavBar = () => {
     })
       .then(() => {
         dispatch(userActions.logout());
-
-        Cookies.remove('token');
 
         return navigate('/', { replace: true });
       })

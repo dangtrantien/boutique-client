@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
 
 import useHttp from '../../hooks/use-http';
 import { userActions } from '../../store/user/user-slice';
@@ -40,10 +39,6 @@ const SigninForm = () => {
         if (result.error) {
           return alert(result.message);
         }
-
-        Cookies.set('token', result.token, {
-          expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7),
-        });
 
         return navigate('/', { replace: true });
       })

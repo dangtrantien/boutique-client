@@ -1,12 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import useHttp from '../../hooks/use-http';
-import { productActions } from '../../store/product/product-slice';
 import Category from './Category';
 import ProductList from './ProductList';
-import { host } from '../../store/store';
 
 import styles from './Shop.module.css';
 
@@ -14,8 +10,6 @@ import styles from './Shop.module.css';
 
 const Shop = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
-  const sendRequest = useHttp();
 
   const [category, setCategory] = useState(location.state?.category || 'all');
 
@@ -23,23 +17,6 @@ const Shop = () => {
   const selectCategoryHandler = (selectedCategory) => {
     setCategory(selectedCategory);
   };
-
-  useEffect(() => {
-    sendRequest({
-      url:
-        category === 'all'
-          ? host
-          : `${host}/products/category?category=${category}`,
-    })
-      .then((result) => {
-        if (result.error) {
-          return alert(result.message);
-        }
-
-        dispatch(productActions.replaceProductSate(result));
-      })
-      .catch((err) => console.log(err));
-  }, [category, sendRequest, dispatch]);
 
   return (
     <div className={styles['shop-container']}>
@@ -56,7 +33,7 @@ const Shop = () => {
           </select>
         </div>
 
-        <ProductList />
+        <ProductList category={category} />
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ const RelateList = (props) => {
   const dispatch = useDispatch();
   const sendRequest = useHttp();
 
+  const totalRelatedProduct = useSelector((state) => state.product.total);
   const products = useSelector((state) => state.product.items);
 
   useEffect(() => {
@@ -26,13 +27,14 @@ const RelateList = (props) => {
           return alert(result.message);
         }
 
-        const relateList = [];
-
-        result.result.map((data) => relateList.push(data.results));
+        const relatedProduct = result.data.filter(
+          (prod) => prod._id !== productId
+        );
 
         dispatch(
           productActions.replaceProductSate({
-            result: relateList.flat().filter((prod) => prod._id !== productId),
+            total: result.total - 1,
+            result: relatedProduct,
           })
         );
       })
@@ -41,11 +43,11 @@ const RelateList = (props) => {
 
   return (
     <div className={styles['list-container']}>
-      {products.length === 0 && (
+      {totalRelatedProduct === 0 && (
         <h3 className={styles.error}>There's no related to this product!</h3>
       )}
 
-      {products.length !== 0 &&
+      {totalRelatedProduct > 0 &&
         products.map((product, index) => (
           <div key={index} className={styles['product-container']}>
             <Link to={`/product/${product._id}`}>
