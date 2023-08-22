@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
 import styles from './CategoryList.module.css';
-import ImgProduct1 from '../../assets/product_1.png';
-import ImgProduct2 from '../../assets/product_2.png';
-import ImgProduct3 from '../../assets/product_3.png';
-import ImgProduct4 from '../../assets/product_4.png';
-import ImgProduct5 from '../../assets/product_5.png';
+import ImgProduct1 from '../../assets/images/product_1.png';
+import ImgProduct2 from '../../assets/images/product_2.png';
+import ImgProduct3 from '../../assets/images/product_3.png';
+import ImgProduct4 from '../../assets/images/product_4.png';
+import ImgProduct5 from '../../assets/images/product_5.png';
 
 // ==================================================
 

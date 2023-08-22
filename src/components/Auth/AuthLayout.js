@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 import styles from './AuthLayout.module.css';
-import BackgroundImg from '../../assets/banner1.jpg';
+import BackgroundImg from '../../assets/images/banner1.jpg';
 
 // ==================================================
 

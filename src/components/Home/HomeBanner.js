@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import styles from './HomeBanner.module.css';
-import BannerBackground from '../../assets/banner1.jpg';
+import BannerBackground from '../../assets/images/banner1.jpg';
 
 // ==================================================
 
