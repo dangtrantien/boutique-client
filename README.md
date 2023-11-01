@@ -71,7 +71,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Link Deploy
 
-This project was deploy here: [https://boutique-client.onrender.com](https://boutique-client.onrender.com)
+This project was deploy here: [https://boutique-client-dangtrantien.vercel.app](https://boutique-client-dangtrantien.vercel.app)
 
 ### This project has following structures:
 
